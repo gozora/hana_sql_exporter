@@ -71,6 +71,10 @@ var webCmd = &cobra.Command{
 		if err != nil {
 			exit("Problem with timeout flag: ", err)
 		}
+		config.listen, err = cmd.Flags().GetString("listen")
+		if err != nil {
+			exit("Problem with listen flag: ", err)
+		}
 		config.port, err = cmd.Flags().GetString("port")
 		if err != nil {
 			exit("Problem with port flag: ", err)
@@ -94,6 +98,7 @@ func init() {
 	RootCmd.AddCommand(webCmd)
 
 	webCmd.PersistentFlags().UintP("timeout", "t", 5, "scrape timeout of the hana_sql_exporter in seconds.")
+	webCmd.PersistentFlags().StringP("listen", "", "", "listen on specific interface.")
 	webCmd.PersistentFlags().StringP("port", "p", "9658", "port, the hana_sql_exporter listens to.")
 	webCmd.PersistentFlags().BoolP("clean_labels", "l", true, "should be label values lowercase and have space replaced by underscore.")
 }
@@ -173,7 +178,7 @@ func (config *Config) Web() error {
 	// mux.Handle("/debug/pprof/threadcreate", pprof.Handler("threadcreate"))
 
 	server := &http.Server{
-		Addr:         ":" + config.port,
+		Addr:         config.listen + ":" + config.port,
 		Handler:      mux,
 		WriteTimeout: time.Duration(config.Timeout+2) * time.Second,
 		ReadTimeout:  time.Duration(config.Timeout+2) * time.Second,

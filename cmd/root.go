@@ -59,6 +59,7 @@ type Config struct {
 	Metrics      []MetricInfo
 	DataFunc     func(mPos, tPos int) []MetricRecord
 	Timeout      uint
+	listen       string
 	port         string
 	clean_labels bool
 }

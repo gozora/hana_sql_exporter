@@ -1,6 +1,8 @@
 syntax = "proto3";
 package internal;
 
+option go_package = "./internal";
+
 message Secret {
   map<string,bytes> Name = 1;
 }

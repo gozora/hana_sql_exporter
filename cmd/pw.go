@@ -23,7 +23,6 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -31,6 +30,7 @@ import (
 	"github.com/ulranh/hana_sql_exporter/internal"
 	"golang.org/x/crypto/nacl/secretbox"
 	"golang.org/x/crypto/ssh/terminal"
+	"google.golang.org/protobuf/proto"
 )
 
 // pwCmd represents the pw command
