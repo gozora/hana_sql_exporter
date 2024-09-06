@@ -95,7 +95,7 @@ func init() {
 
 	webCmd.PersistentFlags().UintP("timeout", "t", 5, "scrape timeout of the hana_sql_exporter in seconds.")
 	webCmd.PersistentFlags().StringP("port", "p", "9658", "port, the hana_sql_exporter listens to.")
-	webCmd.PersistentFlags().BoolP("clean_labels", "c", true, "should be label values lowercase and have space replaced by underscore.")
+	webCmd.PersistentFlags().BoolP("clean_labels", "l", true, "should be label values lowercase and have space replaced by underscore.")
 }
 
 // create new collector
