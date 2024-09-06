@@ -148,7 +148,7 @@ func (config *Config) AddSecret(tenants string, pw []byte) ([]byte, error) {
 	}
 
 	// write pw information back to the config file
-	newSecret, err := proto.Marshal(&secret)
+	newSecret, err := proto.Marshal(secret)
 	if err != nil {
 		return nil, errors.Wrap(err, "AddSecret(Marshal)")
 	}
@@ -209,22 +209,22 @@ func PwDecrypt(encrypted, byteSecret []byte) (string, error) {
 }
 
 // GetSecretMap - unmarshal secret bytes
-func (config *Config) GetSecretMap() (internal.Secret, error) {
+func (config *Config) GetSecretMap() (*internal.Secret, error) {
 
 	if config.Secret == nil {
-		return internal.Secret{}, nil
+		return &internal.Secret{}, nil
 	}
 
 	// unmarshal secret byte array
 	var secret internal.Secret
 	if err := proto.Unmarshal(config.Secret, &secret); err != nil {
-		return internal.Secret{}, errors.Wrap(err, "GetSecretMap(Unmarshal)")
+		return &internal.Secret{}, errors.Wrap(err, "GetSecretMap(Unmarshal)")
 	}
-	return secret, nil
+	return &secret, nil
 }
 
 // GetPassword - decrypt password
-func GetPassword(secret internal.Secret, tenant string) (string, error) {
+func GetPassword(secret *internal.Secret, tenant string) (string, error) {
 
 	// get encrypted tenant pw
 	if _, ok := secret.Name[low(tenant)]; !ok {

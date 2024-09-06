@@ -136,7 +136,7 @@ func exit(msg string, err error) {
 }
 
 // prepare, establish, check and return connection to hana db
-func (config *Config) getConnection(tId int, secretMap internal.Secret) *sql.DB {
+func (config *Config) getConnection(tId int, secretMap *internal.Secret) *sql.DB {
 
 	pw, err := GetPassword(secretMap, config.Tenants[tId].Name)
 	if err != nil {

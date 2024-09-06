@@ -72,7 +72,7 @@ func Test_GetSecretMap(t *testing.T) {
 	config.Secret = nil
 	res, err := config.GetSecretMap()
 	assert.Nil(err)
-	assert.Equal(res, internal.Secret{})
+	assert.Equal(res, &internal.Secret{})
 
 	// bad secret
 	config.Secret = []byte("no secret")
